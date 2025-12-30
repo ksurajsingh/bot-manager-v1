@@ -2,7 +2,7 @@
   
 - [ ] how do we overcome  
         - [x] encrypted channels  
-                - [x] metadata   
+            - [x] metadata   
         - [x] machine learning evasion  
                 - [x] stability_score   
                 - [x] base_score  
