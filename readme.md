@@ -18,6 +18,7 @@
             - [ ] RAM  
         - [x] setup captcha - prevents , we detect  
   
+- [ ] web gui would be good for boomers
   
 # Future Work   
   
