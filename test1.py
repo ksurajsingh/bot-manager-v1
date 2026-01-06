@@ -1,6 +1,7 @@
 from scapy.all import rdpcap, IP, TCP
 from collections import defaultdict
 import statistics
+import idba
 
 PCAP_FILE = "/home/suraj/traffic.pcap"
 ALERT_THRESHOLD = 7
@@ -24,10 +25,18 @@ for pkt in packets:
 
         flows[(src, dst, dport)].append((timestamp, size))
 
+        # OPTIMIZE 
+
+            # flows[(src, dst, dport)].append(
+            #     (timestamp, size, src, dst, dport)
+            # )
+
 def window_packets(packets):
     windows = defaultdict(list)
     start = packets[0][0]
-    print(len(packets))
+
+    # DEBUGING
+    print(len(packets)) 
     for t, s in packets:
         window_id = int((t - start) // WINDOW_SIZE)
         windows[window_id].append((t, s))
@@ -94,5 +103,5 @@ for flow, packets in flows.items():
         print(f"  {src} → {dst}:{port}")
         print(f"  Score: {score}")
         print(f"  Windows analyzed: {len(windows)}")
+        print(f"  IDBA score: {idba.idba_score(packets,windows,flows)}")
 
-print(len(packets))

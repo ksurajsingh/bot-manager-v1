@@ -7,7 +7,6 @@ ALERT_THRESHOLD = 5
 
 flows = defaultdict(list)
 
-# 1. Read packets and extract metadata
 packets = rdpcap(PCAP_FILE)
 
 for pkt in packets:
@@ -26,7 +25,6 @@ for pkt in packets:
         key = (src, dst, dport)
         flows[key].append((timestamp, size))
 
-# 2. Analyze each flow
 def analyze_flow(packets):
     if len(packets) < 10:
         return None
@@ -43,7 +41,6 @@ def analyze_flow(packets):
         "mean_interval": statistics.mean(intervals),
     }
 
-# 3. Score behavior
 def score(features):
     score = 0
 
@@ -61,7 +58,6 @@ def score(features):
 
     return score
 
-# 4. Detection
 for flow, pkts in flows.items():
     features = analyze_flow(pkts)
     if not features:
